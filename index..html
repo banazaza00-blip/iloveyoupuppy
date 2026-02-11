@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffc4d6 0%, #e8b5e8 20%, #ffb3c1 40%, #d4a5d6 60%, #ff9eb3 80%, #c299d6 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .hearts-background {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .heart:nth-child(1) { left: 15%; top: 15%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 75%; top: 25%; animation-delay: 3s; }
+        .heart:nth-child(3) { left: 45%; top: 55%; animation-delay: 6s; }
+        .heart:nth-child(4) { left: 25%; top: 75%; animation-delay: 9s; }
+        .heart:nth-child(5) { left: 65%; top: 85%; animation-delay: 12s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        .decorations {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .decoration {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.25;
+            animation: float 25s infinite ease-in-out;
+        }
+
+        .decoration:nth-child(1) { left: 8%; top: 10%; animation-delay: 1s; }
+        .decoration:nth-child(2) { right: 10%; top: 20%; animation-delay: 4s; }
+        .decoration:nth-child(3) { left: 12%; bottom: 25%; animation-delay: 7s; }
+        .decoration:nth-child(4) { right: 8%; bottom: 15%; animation-delay: 10s; }
+        .decoration:nth-child(5) { left: 50%; top: 8%; animation-delay: 2s; }
+        .decoration:nth-child(6) { left: 85%; top: 50%; animation-delay: 5s; }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            color: #d14d7a;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #a8698f;
+            font-weight: 400;
+        }
+
+        .upload-section {
+            margin-bottom: 2rem;
+        }
+
+        .upload-box {
+            background: white;
+            border: 2px dashed #e8a8c5;
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .upload-box:hover {
+            border-color: #d88aab;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .upload-label {
+            cursor: pointer;
+            display: block;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .upload-label p {
+            color: #b377a0;
+            font-size: 1rem;
+            margin: 0.4rem 0;
+            font-weight: 400;
+        }
+
+        .note-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .note-btn {
+            background: white;
+            color: #b57fb5;
+            border: 2px solid #d8a5e0;
+            padding: 0.9rem 1rem;
+            font-size: 0.95rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .note-btn:hover {
+            background: #f8f0ff;
+            border-color: #b57fb5;
+        }
+
+        .draft-space-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            text-align: center;
+            color: #c277a8;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            background: #fafafa;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .content-card {
+            position: relative;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            background: white;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .content-type {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-text {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex-grow: 1;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .content-from {
+            color: #e91e63;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        .content-date {
+            color: #999;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #e91e63;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item:hover .delete-btn,
+        .content-card:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #b99faf;
+            font-size: 1rem;
+            padding: 2rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.2s ease;
+        }
+
+        .choice-screen {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 12% auto;
+            padding: 3rem 2.5rem;
+            border-radius: 24px;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .choice-screen h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #e91e63;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .choice-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .choice-btn {
+            background: linear-gradient(135deg, #d88aab 0%, #b57fb5 50%, #e91e63 100%);
+            color: white;
+            border: none;
+            padding: 1.1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(181, 127, 181, 0.3);
+        }
+
+        .choice-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(181, 127, 181, 0.5);
+        }
+
+        .password-screen {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            margin: 12% auto;
+            padding: 3rem 2.5rem;
+            border-radius: 24px;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .password-screen h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #e91e63;
+            margin-bottom: 0.8rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .password-screen p {
+            color: #c2185b;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .password-screen input,
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #d8a5e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            outline: none;
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        textarea {
+            text-align: left;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .password-screen input:focus,
+        textarea:focus {
+            border-color: #b57fb5;
+            background: white;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #d88aab 0%, #b57fb5 50%, #e91e63 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(181, 127, 181, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(181, 127, 181, 0.5);
+        }
+
+        .btn-back {
+            background: transparent;
+            color: #e91e63;
+            border: none;
+            padding: 0.7rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .btn-back:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #d14d7a;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Envelope Entrance */
+        #envelopeIntro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffc4d6 0%, #e8b5e8 50%, #ffb3c1 100%);
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.8s ease;
+            overflow: hidden;
+        }
+
+        #envelopeIntro.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .envelope-container {
+            position: relative;
+            width: 500px;
+            height: 350px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 250px solid transparent;
+            border-right: 250px solid transparent;
+            border-top: 175px solid #ffb3d9;
+            transform-origin: top center;
+            transition: transform 0.6s ease;
+            z-index: 3;
+            transform: rotateX(0deg);
+        }
+
+        .envelope-container:hover .envelope-flap,
+        .envelope-container.opening .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 500px;
+            height: 200px;
+            background: #ffc4e1;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .envelope-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 250px solid transparent;
+            border-right: 250px solid transparent;
+            border-bottom: 175px solid #ffc4e1;
+        }
+
+        .letter {
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%) translateY(0);
+            width: 380px;
+            height: 250px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 30px;
+            transition: all 0.8s ease;
+            z-index: 1;
+            opacity: 0;
+        }
+
+        .envelope-container:hover .letter,
+        .envelope-container.opening .letter {
+            transform: translateX(-50%) translateY(-220px);
+            opacity: 1;
+            z-index: 4;
+        }
+
+        .letter-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #e91e63;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .letter-subtext {
+            font-size: 1.1rem;
+            color: #b57fb5;
+            text-align: center;
+        }
+
+        .tap-hint {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Quicksand', sans-serif;
+            color: white;
+            font-size: 1.1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Shared Memories Section */
+        .memories-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .memory-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            background: #fafafa;
+            margin-bottom: 1rem;
+        }
+
+        .memory-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .memory-item img,
+        .memory-item video {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .memory-caption {
+            padding: 1rem;
+            background: white;
+        }
+
+        .memory-caption-text {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .memory-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .memory-from {
+            color: #b57fb5;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 1.8rem; }
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 0.8rem;
+            }
+            .gallery-item img,
+            .gallery-item video { height: 140px; }
+            .choice-screen, .password-screen {
+                margin: 25% auto;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Envelope Entrance -->
+    <div id="envelopeIntro">
+        <div class="envelope-container" id="envelopeContainer" onclick="openEnvelope()">
+            <div class="envelope">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body"></div>
+                <div class="letter">
+                    <div class="letter-text">for you 💕</div>
+                    <div class="letter-subtext">click to open</div>
+                </div>
+            </div>
+        </div>
+        <div class="tap-hint">click to open the envelope</div>
+    </div>
+
+    <div class="hearts-background">
+        <span class="heart">💕</span>
+        <span class="heart">💖</span>
+        <span class="heart">💗</span>
+        <span class="heart">💝</span>
+        <span class="heart">💓</span>
+    </div>
+
+    <div class="decorations">
+        <span class="decoration">🌸</span>
+        <span class="decoration">🐱</span>
+        <span class="decoration">🐶</span>
+        <span class="decoration">🌺</span>
+        <span class="decoration">🐾</span>
+        <span class="decoration">🌼</span>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1 class="title">for you 💕</h1>
+            <p class="subtitle">your special space</p>
+        </header>
+
+        <!-- Shared Memories Section -->
+        <div class="memories-section">
+            <h2 class="section-title">OUR BEAUTIFUL MEMORIES 💕</h2>
+            <div id="memoriesGallery" class="gallery"></div>
+            <p id="memoriesEmptyMessage" class="empty-message">no memories yet... add your first one! 🥰</p>
+        </div>
+
+        <div class="upload-section">
+            <div class="upload-box">
+                <input type="file" id="fileInput" accept="image/*,video/*" multiple hidden>
+                <label for="fileInput" class="upload-label">
+                    <span class="upload-icon">📷</span>
+                    <p>upload photos or videos</p>
+                </label>
+            </div>
+            <div class="note-buttons">
+                <button class="note-btn" id="memoryBtn">💖 add memory</button>
+                <button class="note-btn" id="noteBtn">📝 add a note</button>
+                <button class="note-btn" id="letterBtn">💌 write a letter</button>
+                <button class="note-btn" id="reminderBtn">⏰ add reminder</button>
+            </div>
+        </div>
+
+        <div class="draft-space-section">
+            <h2 class="section-title">everything sent 💕</h2>
+            <div id="gallery" class="gallery"></div>
+            <p id="emptyMessage" class="empty-message">nothing here yet...</p>
+        </div>
+
+        <!-- Choice Modal -->
+        <div id="choiceModal" class="modal">
+            <div class="choice-screen" id="choiceScreen">
+                <h2>choose one</h2>
+                <div class="choice-buttons">
+                    <button class="choice-btn" id="leoBtn">leo'sss</button>
+                    <button class="choice-btn" id="babyBtn">for my sweet baby</button>
+                </div>
+            </div>
+            <div class="password-screen" id="ownerPasswordScreen">
+                <h2>leo's space</h2>
+                <p>enter your code</p>
+                <input type="password" id="ownerPassword" placeholder="• • • • • • • •">
+                <button id="ownerLoginBtn" class="btn-login">enter</button>
+                <button class="btn-back" id="ownerBackBtn">go back</button>
+                <p id="ownerErrorMessage" class="error-message"></p>
+            </div>
+            <div class="password-screen" id="uploaderPasswordScreen">
+                <h2>what's the code?</h2>
+                <p>only you know this one...</p>
+                <input type="password" id="uploaderPassword" placeholder="type the secret code">
+                <button id="uploaderLoginBtn" class="btn-login">unlock</button>
+                <button class="btn-back" id="uploaderBackBtn">go back</button>
+                <p id="uploaderErrorMessage" class="error-message"></p>
+            </div>
+        </div>
+
+        <!-- Content Modal -->
+        <div id="contentModal" class="modal">
+            <div class="password-screen" id="contentFormScreen" style="display: block;">
+                <h2 id="contentTitle">add a note</h2>
+                <textarea id="contentText" placeholder="write something sweet..."></textarea>
+                <button id="saveContentBtn" class="btn-login">send 💕</button>
+                <button class="btn-back" id="cancelContentBtn">cancel</button>
+            </div>
+        </div>
+
+        <!-- Memory Modal -->
+        <div id="memoryModal" class="modal">
+            <div class="password-screen" style="display: block;">
+                <h2>add a memory 💖</h2>
+                <p style="margin-bottom: 1rem; font-size: 0.9rem;">upload a photo/video with a caption</p>
+                <input type="file" id="memoryFileInput" accept="image/*,video/*" style="margin-bottom: 1rem;">
+                <textarea id="memoryCaption" placeholder="add a sweet caption..."></textarea>
+                <button id="saveMemoryBtn" class="btn-login">save memory 💕</button>
+                <button class="btn-back" id="cancelMemoryBtn">cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const OWNER_PASSWORD = 'iwkmssb';
+        const UPLOADER_PASSWORD = 'imissyouprincess';
+
+        let currentUser = null; // 'leo' or 'baby'
+        let uploadedFiles = [];
+        let sharedMemories = [];
+        let currentContentType = '';
+
+        // Elements
+        const choiceModal = document.getElementById('choiceModal');
+        const choiceScreen = document.getElementById('choiceScreen');
+        const ownerPasswordScreen = document.getElementById('ownerPasswordScreen');
+        const uploaderPasswordScreen = document.getElementById('uploaderPasswordScreen');
+        const contentModal = document.getElementById('contentModal');
+        const memoryModal = document.getElementById('memoryModal');
+        const gallery = document.getElementById('gallery');
+        const emptyMessage = document.getElementById('emptyMessage');
+        const memoriesGallery = document.getElementById('memoriesGallery');
+        const memoriesEmptyMessage = document.getElementById('memoriesEmptyMessage');
+
+        // Envelope entrance
+        function openEnvelope() {
+            const envelopeContainer = document.getElementById('envelopeContainer');
+            const envelope = document.getElementById('envelopeIntro');
+            
+            // First open the envelope
+            envelopeContainer.classList.add('opening');
+            
+            // Then fade out after envelope opens
+            setTimeout(() => {
+                envelope.classList.add('hidden');
+                setTimeout(() => {
+                    envelope.style.display = 'none';
+                }, 800);
+            }, 1000);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadFromStorage();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Choice buttons
+            document.getElementById('leoBtn').addEventListener('click', () => {
+                choiceScreen.style.display = 'none';
+                ownerPasswordScreen.style.display = 'block';
+            });
+
+            document.getElementById('babyBtn').addEventListener('click', () => {
+                choiceScreen.style.display = 'none';
+                uploaderPasswordScreen.style.display = 'block';
+            });
+
+            // Back buttons
+            document.getElementById('ownerBackBtn').addEventListener('click', backToChoice);
+            document.getElementById('uploaderBackBtn').addEventListener('click', backToChoice);
+
+            // Login buttons
+            document.getElementById('ownerLoginBtn').addEventListener('click', checkOwnerPassword);
+            document.getElementById('uploaderLoginBtn').addEventListener('click', checkUploaderPassword);
+
+            // Enter key for passwords
+            document.getElementById('ownerPassword').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkOwnerPassword();
+            });
+
+            document.getElementById('uploaderPassword').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkUploaderPassword();
+            });
+
+            // Note/Letter/Reminder/Memory buttons
+            document.getElementById('memoryBtn').addEventListener('click', openMemoryModal);
+            document.getElementById('noteBtn').addEventListener('click', () => openContentModal('note'));
+            document.getElementById('letterBtn').addEventListener('click', () => openContentModal('letter'));
+            document.getElementById('reminderBtn').addEventListener('click', () => openContentModal('reminder'));
+
+            // Content modal buttons
+            document.getElementById('saveContentBtn').addEventListener('click', saveContent);
+            document.getElementById('cancelContentBtn').addEventListener('click', closeContentModal);
+
+            // Memory modal buttons
+            document.getElementById('saveMemoryBtn').addEventListener('click', saveMemory);
+            document.getElementById('cancelMemoryBtn').addEventListener('click', closeMemoryModal);
+
+            // File upload
+            document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+        }
+
+        function showChoiceModal() {
+            choiceModal.style.display = 'block';
+            choiceScreen.style.display = 'block';
+            ownerPasswordScreen.style.display = 'none';
+            uploaderPasswordScreen.style.display = 'none';
+        }
+
+        function backToChoice() {
+            ownerPasswordScreen.style.display = 'none';
+            uploaderPasswordScreen.style.display = 'none';
+            choiceScreen.style.display = 'block';
+            document.getElementById('ownerErrorMessage').textContent = '';
+            document.getElementById('uploaderErrorMessage').textContent = '';
+        }
+
+        function checkOwnerPassword() {
+            const input = document.getElementById('ownerPassword').value;
+            const errorMsg = document.getElementById('ownerErrorMessage');
+
+            if (input === OWNER_PASSWORD) {
+                currentUser = 'leo';
+                choiceModal.style.display = 'none';
+                renderGallery();
+                renderMemories();
+                console.log('Leo logged in, currentUser:', currentUser);
+            } else {
+                errorMsg.textContent = 'wrong code';
+                setTimeout(() => errorMsg.textContent = '', 3000);
+            }
+        }
+
+        function checkUploaderPassword() {
+            const input = document.getElementById('uploaderPassword').value;
+            const errorMsg = document.getElementById('uploaderErrorMessage');
+
+            if (input === UPLOADER_PASSWORD) {
+                currentUser = 'baby';
+                choiceModal.style.display = 'none';
+                document.querySelector('.draft-space-section').style.display = 'none';
+                renderMemories();
+                console.log('Baby logged in, currentUser:', currentUser);
+            } else {
+                errorMsg.textContent = 'wrong code';
+                setTimeout(() => errorMsg.textContent = '', 3000);
+            }
+        }
+
+        function openContentModal(type) {
+            if (!currentUser) {
+                alert('please login first');
+                return;
+            }
+
+            currentContentType = type;
+            const titles = {
+                note: 'add a note',
+                letter: 'write a letter',
+                reminder: 'add reminder'
+            };
+            const placeholders = {
+                note: 'write something sweet...',
+                letter: 'pour your heart out...',
+                reminder: 'remind me to...'
+            };
+
+            document.getElementById('contentTitle').textContent = titles[type];
+            document.getElementById('contentText').placeholder = placeholders[type];
+            document.getElementById('contentText').value = '';
+            contentModal.style.display = 'block';
+        }
+
+        function closeContentModal() {
+            contentModal.style.display = 'none';
+            document.getElementById('contentText').value = '';
+        }
+
+        function saveContent() {
+            const text = document.getElementById('contentText').value.trim();
+            if (!text) {
+                alert('please write something first!');
+                return;
+            }
+
+            const contentData = {
+                id: Date.now() + Math.random(),
+                type: currentContentType,
+                text: text,
+                from: currentUser,
+                date: new Date().toISOString()
+            };
+
+            uploadedFiles.push(contentData);
+            saveToStorage();
+            closeContentModal();
+            
+            if (currentUser === 'leo') {
+                renderGallery();
+            } else {
+                showUploadSuccess();
+            }
+        }
+
+        function handleFileUpload(e) {
+            if (!currentUser) {
+                alert('please login first');
+                return;
+            }
+
+            const files = Array.from(e.target.files);
+
+            files.forEach(file => {
+                const reader = new FileReader();
+
+                reader.onload = (event) => {
+                    const fileData = {
+                        id: Date.now() + Math.random(),
+                        type: file.type.startsWith('image/') ? 'image' : 'video',
+                        data: event.target.result,
+                        name: file.name,
+                        from: currentUser,
+                        date: new Date().toISOString()
+                    };
+
+                    uploadedFiles.push(fileData);
+                    saveToStorage();
+
+                    if (currentUser === 'leo') {
+                        renderGallery();
+                    } else {
+                        showUploadSuccess();
+                    }
+                };
+
+                reader.readAsDataURL(file);
+            });
+
+            e.target.value = '';
+        }
+
+        function showUploadSuccess() {
+            const uploadBox = document.querySelector('.upload-box');
+            uploadBox.style.borderColor = '#b8e6b8';
+            uploadBox.style.background = '#f0faf0';
+            setTimeout(() => {
+                uploadBox.style.borderColor = '';
+                uploadBox.style.background = 'white';
+            }, 1000);
+        }
+
+        function renderGallery() {
+            if (currentUser !== 'leo') return;
+
+            if (uploadedFiles.length === 0) {
+                gallery.innerHTML = '';
+                emptyMessage.style.display = 'block';
+                return;
+            }
+
+            emptyMessage.style.display = 'none';
+
+            gallery.innerHTML = uploadedFiles.map(item => {
+                if (item.type === 'image' || item.type === 'video') {
+                    return `
+                        <div class="gallery-item">
+                            ${item.type === 'image'
+                                ? `<img src="${item.data}" alt="${item.name}">`
+                                : `<video src="${item.data}" controls></video>`
+                            }
+                            <button class="delete-btn" onclick="deleteFile(${item.id})">🗑️</button>
+                        </div>
+                    `;
+                } else {
+                    const icons = { note: '📝', letter: '💌', reminder: '⏰' };
+                    const date = new Date(item.date).toLocaleDateString();
+                    const fromLabel = item.from === 'leo' ? 'from leo' : 'from sweet baby';
+                    return `
+                        <div class="content-card">
+                            <div class="content-type">${icons[item.type]}</div>
+                            <div class="content-text">${item.text}</div>
+                            <div class="content-from">${fromLabel}</div>
+                            <div class="content-date">${date}</div>
+                            <button class="delete-btn" onclick="deleteFile(${item.id})">🗑️</button>
+                        </div>
+                    `;
+                }
+            }).join('');
+        }
+
+        function deleteFile(id) {
+            if (currentUser !== 'leo') return;
+
+            if (confirm('delete this?')) {
+                uploadedFiles = uploadedFiles.filter(file => file.id !== id);
+                saveToStorage();
+                renderGallery();
+            }
+        }
+
+        // Memory modal functions
+        function openMemoryModal() {
+            console.log('openMemoryModal called, currentUser:', currentUser);
+            if (!currentUser) {
+                alert('please login first');
+                showChoiceModal();
+                return;
+            }
+            document.getElementById('memoryFileInput').value = '';
+            document.getElementById('memoryCaption').value = '';
+            memoryModal.style.display = 'block';
+        }
+
+        function closeMemoryModal() {
+            memoryModal.style.display = 'none';
+        }
+
+        function saveMemory() {
+            const fileInput = document.getElementById('memoryFileInput');
+            const caption = document.getElementById('memoryCaption').value.trim();
+
+            if (!fileInput.files[0]) {
+                alert('please select a photo or video first!');
+                return;
+            }
+
+            if (!caption) {
+                alert('please add a caption!');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+                const memoryData = {
+                    id: Date.now() + Math.random(),
+                    type: file.type.startsWith('image/') ? 'image' : 'video',
+                    data: event.target.result,
+                    caption: caption,
+                    from: currentUser,
+                    date: new Date().toISOString()
+                };
+
+                sharedMemories.push(memoryData);
+                saveToStorage();
+                closeMemoryModal();
+                renderMemories();
+                showUploadSuccess();
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        function renderMemories() {
+            if (sharedMemories.length === 0) {
+                memoriesGallery.innerHTML = '';
+                memoriesEmptyMessage.style.display = 'block';
+                return;
+            }
+
+            memoriesEmptyMessage.style.display = 'none';
+
+            memoriesGallery.innerHTML = sharedMemories.map(memory => {
+                const date = new Date(memory.date).toLocaleDateString();
+                const fromLabel = memory.from === 'leo' ? 'leo' : 'sweet baby';
+                return `
+                    <div class="memory-item">
+                        ${memory.type === 'image'
+                            ? `<img src="${memory.data}" alt="memory">`
+                            : `<video src="${memory.data}" controls></video>`
+                        }
+                        <div class="memory-caption">
+                            <div class="memory-caption-text">${memory.caption}</div>
+                            <div class="memory-meta">
+                                <span class="memory-from">by ${fromLabel}</span>
+                                <span>${date}</span>
+                            </div>
+                        </div>
+                        ${currentUser === 'leo' ? `<button class="delete-btn" onclick="deleteMemory(${memory.id})">🗑️</button>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function deleteMemory(id) {
+            if (currentUser !== 'leo') return;
+
+            if (confirm('delete this memory?')) {
+                sharedMemories = sharedMemories.filter(m => m.id !== id);
+                saveToStorage();
+                renderMemories();
+            }
+        }
+
+        function saveToStorage() {
+            try {
+                localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+                localStorage.setItem('sharedMemories', JSON.stringify(sharedMemories));
+            } catch (e) {
+                console.error('Storage limit exceeded');
+                alert('Storage limit reached! Please delete some files.');
+            }
+        }
+
+        function loadFromStorage() {
+            try {
+                const stored = localStorage.getItem('uploadedFiles');
+                if (stored) {
+                    uploadedFiles = JSON.parse(stored);
+                }
+                const storedMemories = localStorage.getItem('sharedMemories');
+                if (storedMemories) {
+                    sharedMemories = JSON.parse(storedMemories);
+                }
+            } catch (e) {
+                console.error('Error loading files');
+            }
+        }
+    </script>
+</body>
+</html>
